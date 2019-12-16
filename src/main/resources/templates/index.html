@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Gamestudio</title>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="../CSS/index.css" type="text/css">
+    
+</head>
+	<body>
+		<div class="container">	
+		<div class ="header">
+			<h1>Welcome to Game studio!</h1>
+			</div>
+			<div class="row">
+				Our favorite games</br>
+				<nav>
+					<ul>
+						<li><a href="/puzzle"> Start play Puzzle </a></li>
+						<li><a href="/minesweeper"> Start play Minesweeper</a></li>
+						<li><a href="/guessTheNumber"> Start play Guess The Number</a></li>
+					</ul>
+				
+				</nav>
+				<div th:if="${not @mainController.logged}">
+					Please login<br/>
+					<form action="/login">
+						Login: <input type="text" name="name"/><br/>
+						Password: <input type="password" name="password"/><br/>
+						<input type="submit" value = "Login"/>
+					</form>
+				</div>
+			</div>	
+			<div th:if="${@mainController.logged}">
+				You are logged as <span th:text="${@mainController.loggedPlayer.name}"/>
+				<a href="/logout">Logout</a>
+			</div>
+		<div/>	
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Minesweeper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="../CSS/index.css" type="text/css">
+    
+</head>
+
+
+	<body>
+		<h1>Minesweeper</h1>
+		<h3><a href ="/">Back to Gamestudio</a></h3>
+		
+		<div th:if="${not @mainController.logged}">
+			You are not logged in. Please <a href="/">log in.</a>
+		</div>
+		
+		<div th:if="${@mainController.logged}">
+			You are logged as <span th:text="${@mainController.loggedPlayer.name}"/><br/>
+		</div>
+		
+		<a href="/minesweeper">Reset game</a><br/>
+		
+		
+		<div th:if="${@minesweeperController.solved}">
+		You WIN this game!<br/>
+		</div>
+		<a href="/minesweeper/change">Change mark/open</a><br/>
+		
+		<span th:if="${@minesweeperController.marking}">MARKING MODE</span>
+		<span th:if="${not @minesweeperController.marking}">OPENING MODE</span>
+		
+		<div th:if="${not @minesweeperController.solved}">
+		<div th:utext="${@minesweeperController.htmlField}"/>
+		
+		
+		
+
+	</body>
+</html>
