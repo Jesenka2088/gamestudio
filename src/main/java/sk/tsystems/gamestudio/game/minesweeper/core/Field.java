@@ -223,6 +223,7 @@ public class Field {
 		return tiles[row][column];
 	}
 
+	// TO DOOOOO
 	public int getScore() {
 		long startMillis = System.currentTimeMillis();
 		long longSeconds = (System.currentTimeMillis() - startMillis) / 1000;
