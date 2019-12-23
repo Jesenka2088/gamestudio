@@ -1,3 +1,37 @@
-container{
-	background ;
+.container1{
+	background-color: #c0c0c0;
 }
+.title {
+	color: black;
+    font-size: 3.5em;
+    margin:0 auto;
+    font-family: 'Merriweather', serif;
+}
+.subtitle{
+	margin:0 auto;
+	color: gray;
+	font-size: 0.8em;
+	text-align: center;
+	font-family: 'Merriweather', serif;
+}
+
+.menu {
+    font-size: 2.2em;
+    margin: 0 auto;
+    text-align: center;
+}
+.menu a{
+	color: #e20074;
+	font-family: 'Merriweather', serif;
+}
+
+h2{
+	color: #e20074;
+    font-size: 1.1em;
+    text-align: center;
+    background-color: #c0c0c0;
+    font-family: 'Merriweather', serif;
+    border-radius: 15px 60px;
+}
+
+

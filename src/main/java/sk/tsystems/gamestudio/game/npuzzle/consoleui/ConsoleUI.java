@@ -13,6 +13,7 @@ public class ConsoleUI {
 
 	public void play(Field field) {
 		this.field = field;
+		long startMillis = System.currentTimeMillis();
 		do {
 			show();
 			processInput();
@@ -20,6 +21,7 @@ public class ConsoleUI {
 
 		show();
 		System.out.println("You won!");
+		
 		Menu menu = new Menu();
 		menu.showMenu();
 	}

@@ -20,7 +20,6 @@ public class ScoreServiceJPA implements ScoreService {
 	@Override
 	public void addScore(Score score) {
 		entityManager.persist(score);
-		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -28,7 +27,7 @@ public class ScoreServiceJPA implements ScoreService {
 	public List<Score> getTopScores(String game) {
 		return (List<Score>)entityManager.createQuery(
 				"select s from Score s where s.game = :game order by s.value desc")
-				.setParameter("game", game).setMaxResults(10).getResultList();
+				.setParameter("game", game).setMaxResults(3).getResultList();
 		
 	}
 

@@ -22,7 +22,6 @@ public class Comment {
 	}
 	
 	public Comment(String username, String game, String content) {
-		super();
 		this.username = username;
 		this.game = game;
 		this.content = content;
@@ -32,9 +31,6 @@ public class Comment {
 		return ident;
 	}
 
-	public void setIdent(int ident) {
-		this.ident = ident;
-	}
 
 	public String getUsername() {
 		return username;

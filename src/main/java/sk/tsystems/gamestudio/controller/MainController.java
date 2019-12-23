@@ -1,33 +1,43 @@
 package sk.tsystems.gamestudio.controller;
 
-import java.util.Formatter;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
-
 import sk.tsystems.gamestudio.entity.Player;
-import sk.tsystems.gamestudio.entity.Score;
-import sk.tsystems.gamestudio.game.npuzzle.core.Field;
-import sk.tsystems.gamestudio.game.npuzzle.core.Tile;
-import sk.tsystems.gamestudio.service.ScoreService;
+import sk.tsystems.gamestudio.service.PlayerService;
+
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class MainController {
 	private Player loggedPlayer;
+	private Player registeredPlayer;
+
+	@Autowired
+	private PlayerService playerService;
 	
 	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
 	
+	@RequestMapping("/signin")
+	public String signin(Player player) {
+		if(!player.getName().trim().equals("") && !player.getPassword().trim().equals("") && playerService.findPlayerByName(player.getName()) == null)  {
+			playerService.addPlayer(player);
+			registeredPlayer = player;
+			loggedPlayer = player;
+		}  
+		return "redirect:/";
+	}
+	
 	@RequestMapping("/login")
 	public String login(Player player) {
-		if("heslo".equals(player.getPassword())) {
+		Player userInDatabase=playerService.findPlayerByName(player.getName());
+		if(userInDatabase != null && (userInDatabase.getPassword()
+				.equals(player.getPassword()))) {
 			loggedPlayer = player;
 		}
 		return "redirect:/";
@@ -48,5 +58,12 @@ public class MainController {
 		return loggedPlayer;
 	}
 	
+	public boolean isRegistered() {
+		return registeredPlayer != null;
+	}
+	
+	public Player getRegisteredPlayer() {
+		return registeredPlayer;
+	}
 
 }

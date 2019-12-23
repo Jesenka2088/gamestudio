@@ -5,33 +5,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Score {
+public class Rating {
+	
+
 	@Id
 	@GeneratedValue
 	private int ident;
-
+	
 	private String username;
-
+	
 	private String game;
-
+	
 	private int value;
-
-	public Score() {
-
+	
+	
+	public Rating() {
+		
 	}
-
-	public Score(String username, String game, int value) {
+	
+	public Rating(String username, String game, int value) {
 
 		this.username = username;
 		this.game = game;
 		this.value = value;
 	}
-
-	public int getIdent() {
-		return ident;
-	}
-
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -56,9 +54,14 @@ public class Score {
 		this.value = value;
 	}
 
+	public int getIdent() {
+		return ident;
+	}
+
 	@Override
 	public String toString() {
-		return "Score [ident=" + ident + ", username=" + username + ", game=" + game + ", value=" + value + "]";
+		return "Rating [ident=" + ident + ", username=" + username + ", game=" + game + ", value=" + value + "]";
 	}
+	
 	
 }

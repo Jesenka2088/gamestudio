@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Puzzle</title>
+    <title>GUESS THE NUMBER</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     
     <!-- Required meta tags -->
@@ -11,8 +11,8 @@
     
     <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/CSS/puzzle/puzzle.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/CSS/guessnumber/guessnumber.css" />
     <link rel="stylesheet" href="/CSS/footer.css" />
     
 </head>
@@ -21,24 +21,25 @@
 		<div class="container1">
 			<div class = "row">
 				<section class="title">
-				<br />
-				<h1 class="text-center"> PUZZLE </h1>
+					<h1 class="text-center"> Guess The Number </h1>
 				</section>
 			</div>
 			<div class = "row">
 				<section class="subtitle">
-				<p class=" text-center text-muted" th:if="${not @mainController.logged}">To fully enjoy our Game Studio, please register</p>
+				<p class="text-muted text-center" th:if="${not @mainController.logged}">To fully enjoy our Game Studio, please register</p>
 				<br />
 				</section>
 			</div>
 		</div>
-		<div class="container">
+		
+		<div class="container">	
 			<div class="section buttons">
 				<div align="right">
-				<a class="btn btn-success" href="/puzzle" role="button">Play again</a>
+				<a class="btn btn-success " href="/guessNumber" role="button">Play again</a>
 				<a class="btn btn-primary" href="/" role="button">Back to Game Studio</a>
+				</div>
 			</div>
-			</div><br />
+			<br />
 		</div>
 		<div class="container">
 			<div class="text-right">
@@ -48,33 +49,39 @@
 				<span th:if="${@mainController.logged}">
 					Welcome <span th:text="${@mainController.loggedPlayer.name}"/> !<br/>
 				</span>
-				<br/>
+				<br />
 			</div>
 		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="text-center" th:if="${@puzzleController.solved}">
+					<div class="text-center" th:if="${@guessTheNumberController.solved}">
 					<h2>You WIN this game!</h2>
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
+		<div class="container">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<div th:if="${not @guessTheNumberController.solved}" class="content text-center">
+					<span th:utext="${@guessTheNumberController.guessNumberField}">	
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<div th:if="${@guessTheNumberController.guessedNumber !=0}" class="content text-center">
+					<span th:text="${@guessTheNumberController.message}" class="message">
+					</span>
+				</div>			
+			</div><br/>
+		</div>
 		
 		<div class="container">
 			<div class="row">
-				<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-					<span th:utext="${@puzzleController.htmlField}"/>
-				</div>
-				<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-					<img src="/images/puzzle/puzzle.jpg"/>
-				</div>
-			</div><br/>
-		</div>
-		<div class="container">
-			<div class="row">
 				<div class="content">
-					<span th:if="${not @puzzleController.rating}" class="border border-info rounded text-center">
+					<span th:if="${not @guessTheNumberController.rating}" class="border border-info rounded text-center">
 						No rating has been added. For adding your rating you must be registered. To register click <a href="/">here</a>.  
 					</span>
 				</div>
@@ -83,28 +90,30 @@
 		<div class="container">
 			<div class="row">
 				<section class="rating">
-					<div th:if="${@puzzleController.rating}" class="border border-info rounded text-center">
-						Game rating: <span th:text="${@puzzleController.avgRating}"></span>
+					<div th:if="${@guessTheNumberController.rating}" class="border border-info rounded text-center">
+						Game rating: <span th:text="${@guessTheNumberController.avgRating}"></span>
 					</div>
-					<span th:if="${@mainController.logged}">Leave us your rating : 
-						<a class="fa fa-star checked" href = "/puzzle/rating?value=1"></a>
-						<a class="fa fa-star checked" href = "/puzzle/rating?value=2"></a>
-						<a class="fa fa-star checked" href = "/puzzle/rating?value=3"></a>
-						<a class="fa fa-star checked" href = "/puzzle/rating?value=4"></a>
-						<a class="fa fa-star checked" href = "/puzzle/rating?value=5"></a>
+					<span th:if="${@mainController.logged}" >
+						<span th:if="${@mainController.logged}" >Leave us your rating : 
+						<a class="fa fa-star checked" href = "/guessNumber/rating?value=1"></a>
+						<a class="fa fa-star checked" href = "/guessNumber/rating?value=2"></a>
+						<a class="fa fa-star checked" href = "/guessNumber/rating?value=3"></a>
+						<a class="fa fa-star checked" href = "/guessNumber/rating?value=4"></a>
+						<a class="fa fa-star checked" href = "/guessNumber/rating?value=5"></a>
+					</span>
 					</span>
 				</section>
-			</div><br/>
+			</div><br/>	
 		</div>
 		<div class="container">
 			<div class="col-lg-12 col-md-12 col-sm-12">
-				<div th:if="${@puzzleController.comment}" class="border border-info rounded">
+				<div th:if="${@guessTheNumberController.comment}" class="border border-info rounded">
 					<section class="comments">
 						<p>Comments :</p>
 					</section>
 					
 					<ol>
-						<li th:each="comment : ${@puzzleController.comments}">
+						<li th:each="comment : ${@guessTheNumberController.comments}">
 							<span th:text="${comment.username}"></span>
 							<span> : </span>
 							<span th:text="${comment.content}"></span>
@@ -112,11 +121,11 @@
 					</ol>
 				</div>
 			</div>
-		</div>
+		</div>		
 		<div class="container">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="content text-center">
-					<span th:if="${not @puzzleController.comment}" class="border border-info rounded text-center">
+					<span th:if="${not @guessTheNumberController.comment}" class="border border-info rounded text-center">
 						No comment has been added.For adding your comment you must be registered. To register click <a href="/">here </a>. <br />  
 					</span>
 				</div>
@@ -124,7 +133,7 @@
 		</div>
 		<div class="container">
 			<div  th:if="${ @mainController.logged}" class="col-lg-12 col-md-12 col-sm-12">	
-				<form action="/puzzle/addComments">
+				<form action="/guessNumber/addComments">
 					<div class="form-group">
 						<input type="text" class="form-control border border-info rounded" name = "content" placeholder="here type your comment..">
 						<button type="submit" class="btn btn-info">Add comment</button>
@@ -134,13 +143,12 @@
 		</div>
 		<div class="container">
 			<div class="col-lg-12 col-md-12 col-sm-12">
-				<div th:if="${@puzzleController.score}" class="border border-info rounded">
+				<div th:if="${@guessTheNumberController.score}" class="border border-info rounded">
 					<section class="scores">
 						<p>Best Scores :</p>
 					</section>
-					
 					<ol>
-						<li th:each="score : ${@puzzleController.scores}">
+						<li th:each="score : ${@guessTheNumberController.scores}">
 							<span th:text="${score.username}"></span>
 							<span> : </span>
 							<span th:text="${score.value}"></span>
@@ -148,9 +156,9 @@
 					</ol>
 				</div>
 			</div><br />
-		</div>	
+		</div>
 		
-
 		<div th:replace="footer::footer">...</div>
+		
 	</body>
 </html>

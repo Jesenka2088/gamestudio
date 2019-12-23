@@ -1,21 +1,21 @@
 package sk.tsystems.gamestudio.controller;
 
 import java.util.Formatter;
-
-import javax.management.openmbean.InvalidOpenTypeException;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
-
+import sk.tsystems.gamestudio.entity.Comment;
+import sk.tsystems.gamestudio.entity.Rating;
 import sk.tsystems.gamestudio.entity.Score;
 import sk.tsystems.gamestudio.game.minesweeper.core.Clue;
 import sk.tsystems.gamestudio.game.minesweeper.core.Field;
 import sk.tsystems.gamestudio.game.minesweeper.core.GameState;
 import sk.tsystems.gamestudio.game.minesweeper.core.Tile;
-import sk.tsystems.gamestudio.game.minesweeper.core.Tile.State;
+import sk.tsystems.gamestudio.service.CommentService;
+import sk.tsystems.gamestudio.service.RatingService;
 import sk.tsystems.gamestudio.service.ScoreService;
 
 @Controller
@@ -24,16 +24,22 @@ import sk.tsystems.gamestudio.service.ScoreService;
 public class MinesweeperController {
 	private Field field;
 	private boolean marking;
-	
+
 	@Autowired
 	private ScoreService scoreService;
 
 	@Autowired
 	private MainController mainController;
 
+	@Autowired
+	private RatingService ratings;
+
+	@Autowired
+	private CommentService comments;
+
 	@RequestMapping
 	public String index() {
-		field = new Field(5, 5, 5);
+		field = new Field(9, 9, 10);
 		return "minesweeper";
 	}
 
@@ -46,7 +52,8 @@ public class MinesweeperController {
 				field.openTile(row, column);
 		}
 		if (field.isSolved() && mainController.isLogged()) {
-			scoreService.addScore(new Score(mainController.getLoggedPlayer().getName(), "minesweeper", field.getScore()));
+			scoreService
+					.addScore(new Score(mainController.getLoggedPlayer().getName(), "minesweeper", field.getScore()));
 		}
 		return "minesweeper";
 	}
@@ -54,6 +61,26 @@ public class MinesweeperController {
 	@RequestMapping("/change")
 	public String change() {
 		marking = !marking;
+		return "minesweeper";
+	}
+
+	@RequestMapping("/addComments")
+	public String addComments(String content) {
+		if (mainController.isLogged())
+			comments.addComment(new Comment(mainController.getLoggedPlayer().getName(), "minesweeper", content));
+		return "minesweeper";
+	}
+
+	@RequestMapping("/rating")
+	public String rating(int value) {
+		if (mainController.isLogged()) {
+			if (ratings.getRatingByGameNameAndUserName("minesweeper",
+					mainController.getLoggedPlayer().getName()) == null) {
+				ratings.addRating(new Rating(mainController.getLoggedPlayer().getName(), "minesweeper", value));
+			} else
+				ratings.updateRatingValueForUserAndGame("minesweeper", mainController.getLoggedPlayer().getName(),
+						value);
+		}
 		return "minesweeper";
 	}
 
@@ -95,8 +122,33 @@ public class MinesweeperController {
 			throw new IllegalArgumentException();
 		}
 	}
+
 	public boolean isSolved() {
 		return field.isSolved();
 	}
+
+	public List<Score> getScores() {
+		return (scoreService.getTopScores("minesweeper"));
+	}
 	
+	public boolean isScore() {
+		return getScores().size() > 0;
+	}
+
+	public List<Comment> getComments() {
+		return comments.getAllComments("minesweeper");
+	}
+
+	public double getAvgRating() {
+		return Math.round(ratings.getAverageRatingByGameName("minesweeper"));
+	}
+
+	public boolean isRating() {
+		return getAvgRating() != 0;
+	}
+
+	public boolean isComment() {
+		return comments.getAllComments("minesweeper").size() > 0;
+	}
+
 }

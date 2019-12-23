@@ -30,6 +30,11 @@ public class Field {
 	 * Mine count.
 	 */
 	private final int mineCount;
+	
+	/**
+	 * time count from start.
+	 */
+	private final long startMillis = System.currentTimeMillis();
 
 	/**
 	 * Game state.
@@ -223,12 +228,13 @@ public class Field {
 		return tiles[row][column];
 	}
 
-	// TO DOOOOO
+	
 	public int getScore() {
-		long startMillis = System.currentTimeMillis();
 		long longSeconds = (System.currentTimeMillis() - startMillis) / 1000;
 		int seconds = (int) longSeconds;
 		int score = rowCount*columnCount*10 - seconds;
-		return score;
+		if(score>0)
+			return score;
+			else return 0;
 	}
 }

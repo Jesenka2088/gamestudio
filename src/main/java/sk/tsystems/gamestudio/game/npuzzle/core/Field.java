@@ -12,6 +12,11 @@ public class Field {
 	private int rowEmpty;
 
 	private int columnEmpty;
+	
+	/**
+	 * time count from start.
+	 */
+	private final long startMillis = System.currentTimeMillis();
 
 	public Field(int rowCount, int columnCount) {
 		this.rowCount = rowCount;
@@ -49,7 +54,7 @@ public class Field {
 
 	private void shuffle() {
 		Random random = new Random();
-		for (int i = 0; i < rowCount * columnCount * 1; i++)
+		for (int i = 0; i < rowCount * columnCount * 1000; i++)
 			move(random.nextInt(rowCount * columnCount - 1) + 1);
 	}
 
@@ -87,8 +92,11 @@ public class Field {
 	}
 	
 	public int getScore() {
-		Random random = new Random();
-		int score = random.nextInt(20);
-		return score;
+		long longSeconds = (System.currentTimeMillis() - startMillis) / 1000;
+		int seconds = (int) longSeconds;
+		int score = rowCount*columnCount*10 - seconds;
+		if(score>0)
+			return score;
+			else return 0;
 	}
 }

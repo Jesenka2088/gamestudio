@@ -1,7 +1,14 @@
 package sk.tsystems.gamestudio.entity;
 
-public class Player {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class Player {
+	
+	@Id
+	@GeneratedValue
 	private int ident;
 	private String name;
 	private String password;
@@ -35,6 +42,11 @@ public class Player {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [ident=" + ident + ", name=" + name + ", password=" + password + "]";
 	}
 	
 	
