@@ -51,8 +51,11 @@ public class GuessTheNumberController {
 	@RequestMapping("/guessNumber/guess")
 	public String guess(String input) {
 		try {
-			guessedNumber = Integer.parseInt(input);
-			tries++;
+			if(!isFailed()) {
+				guessedNumber = Integer.parseInt(input);
+				tries++;
+			}
+			
 			if (isSolved() && mainController.isLogged()) {
 				scoreService.addScore(
 						new Score(mainController.getLoggedPlayer().getName(), "Guess The Number", getScore()));
@@ -95,7 +98,7 @@ public class GuessTheNumberController {
 
 		f.format("<form action=\"/guessNumber/guess\">");
 		f.format("<div class=\"form-group\">");
-		f.format("<label for=\"name\">I am thinking of number between 1 and 50.</label>");
+		f.format("<label for=\"name\">I am thinking of number between 1 and 50. You have 10 tries.</label>");
 		f.format("<input type=\"text\" class=\"form-control\" name=\"input\" placeholder=\"Type your guess...\">");
 		f.format("<button type=\"submit\" class=\"btn btn-primary\">Submit</button>");
 		f.format("</div>");
@@ -121,6 +124,9 @@ public class GuessTheNumberController {
 	public boolean isSolved() {
 		return (guessedNumber == randomNumber);
 	}
+	public boolean isFailed() {
+		return (!isSolved() && tries>10);
+	}
 
 	public List<Score> getScores() {
 		return scoreService.getTopScores("Guess The Number");
@@ -134,7 +140,9 @@ public class GuessTheNumberController {
 	}
 
 	public double getAvgRating() {
-		return Math.round(ratings.getAverageRatingByGameName("Guess The Number"));
+		double a=ratings.getAverageRatingByGameName("Guess The Number");
+		double roundOff = Math.round(a*100.0)/100.0;
+		return roundOff;
 	}
 
 	public boolean isRating() {

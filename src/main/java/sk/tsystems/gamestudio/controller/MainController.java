@@ -25,7 +25,7 @@ public class MainController {
 	
 	@RequestMapping("/signin")
 	public String signin(Player player) {
-		if(!player.getName().trim().equals("") && !player.getPassword().trim().equals("") && playerService.findPlayerByName(player.getName()) == null)  {
+		if(!player.getName().trim().equals("") && !player.getPassword().trim().equals("") && playerService.findPlayerByName(player.getName()) == null && player.getName().trim().length() > 3 && player.getPassword().trim().length() > 3)  {
 			playerService.addPlayer(player);
 			registeredPlayer = player;
 			loggedPlayer = player;

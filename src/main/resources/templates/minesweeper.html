@@ -60,7 +60,15 @@
 				</div>
 			</div>
 		</div>
-		
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="text-center" th:if="${@minesweeperController.failed}">
+					<h2>You hit the mine! Game Over! </h2>
+					</div>
+				</div>
+			</div>
+		</div>		
 		<div class="text-center">
 			<a class="btn btn-info" href="/minesweeper/change" role="button" >Change mark/open</a><a th:if="${@minesweeperController.marking}" class="border border-info rounded">MARKING MODE</a><a th:if="${not @minesweeperController.marking}" class="border border-info rounded">OPENING MODE</a>
 		</div>
@@ -71,7 +79,7 @@
 						<div th:utext="${@minesweeperController.htmlField}" >
 						</div>
 				</div>
-			</div><br /><br />
+			</div><br />
 		</div>
 		
 		<div class="container">

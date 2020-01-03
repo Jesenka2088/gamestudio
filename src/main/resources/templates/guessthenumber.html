@@ -62,6 +62,15 @@
 			</div>
 		</div>
 		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="text-center" th:if="${@guessTheNumberController.failed}">
+					<h2>You have spent all your tries! Game Over! </h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div th:if="${not @guessTheNumberController.solved}" class="content text-center">
 					<span th:utext="${@guessTheNumberController.guessNumberField}">	

@@ -105,7 +105,9 @@ public class PuzzleController {
 	}
 	
 	public double getAvgRating() {
-		return Math.round(ratings.getAverageRatingByGameName("puzzle"));
+		double a=ratings.getAverageRatingByGameName("puzzle");
+		double roundOff = Math.round(a*100.0)/100.0;
+		return roundOff;
 	}
 	
 	public boolean isRating() {

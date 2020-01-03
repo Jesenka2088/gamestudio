@@ -39,7 +39,7 @@ public class MinesweeperController {
 
 	@RequestMapping
 	public String index() {
-		field = new Field(9, 9, 10);
+		field = new Field(15, 25, 10);
 		return "minesweeper";
 	}
 
@@ -126,7 +126,11 @@ public class MinesweeperController {
 	public boolean isSolved() {
 		return field.isSolved();
 	}
-
+	
+	public boolean isFailed() {
+		return (field.getState() == GameState.FAILED);
+	}
+	
 	public List<Score> getScores() {
 		return (scoreService.getTopScores("minesweeper"));
 	}
@@ -140,7 +144,9 @@ public class MinesweeperController {
 	}
 
 	public double getAvgRating() {
-		return Math.round(ratings.getAverageRatingByGameName("minesweeper"));
+		double a=ratings.getAverageRatingByGameName("minesweeper");
+		double roundOff = Math.round(a*100.0)/100.0;
+		return roundOff;
 	}
 
 	public boolean isRating() {

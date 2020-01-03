@@ -16,9 +16,17 @@
 }
 
 .menu {
-    font-size: 2.2em;
+    font-size: 2em;
     margin: 0 auto;
     text-align: center;
+}
+.rating{
+	font-size: 0.7em;
+    margin: 0 auto;
+    text-align: center;
+}
+.rating a{
+	font-family: 'Merriweather', serif;
 }
 .menu a{
 	color: #e20074;
@@ -27,7 +35,7 @@
 
 h2{
 	color: #e20074;
-    font-size: 1.1em;
+    font-size: 2.1em;
     text-align: center;
     background-color: #c0c0c0;
     font-family: 'Merriweather', serif;

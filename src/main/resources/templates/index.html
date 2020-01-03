@@ -23,7 +23,7 @@
 			</div>
 			<div class = "row">
 				<section class="subtitle">
-					<p class="text-muted" th:if="${not @mainController.logged}">To fully enjoy our Game Studio, please register</p>
+					<p class="text-muted" th:if="${not @mainController.logged}">To fully enjoy our Game Studio, please register. You will be able to see your scores, add comments and rating.</p>
 					<p class="text-muted" th:if="${not @mainController.logged}">We'll never share your personal informations with anyone else.</p>
 				</section>
 				<br />
@@ -51,11 +51,11 @@
 							<form action="/signin">Register here :
 								<div class="form-group">
     								<label for="name">Name</label>
-    								<input type="text" class="form-control" name="name" placeholder="Enter name/nick name">
+    								<input type="text" class="form-control" name="name" placeholder="Name with minimal of four characters...">
  								</div>
 								<div class="form-group">
 									<label for="password">Password</label>
-									<input type="password" class="form-control" name = "password" placeholder="Password">
+									<input type="password" class="form-control" name = "password" placeholder="Password with minimal of four characters...">
 									<button type="submit" class="btn btn-primary">Sign in</button>
 								</div>
 							</form>  
@@ -81,15 +81,29 @@
 			</div>
 		</div>	
 		<div class ="container">
-			<div class ="row">
-				<section class="menu">
-					<br />
+				<br />
 					<h2>Choose from our games</h2>
 					<br />
-						<a href="/puzzle" > Start play Puzzle </a><br />
-						<a href="/minesweeper"> Start play Minesweeper</a><br />
-						<a href="/guessNumber"> Start play Guess The Number</a><br />
-				</section>
+			<div class ="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+					<section class="menu">
+						<a href="/puzzle" > Start play Puzzle </a>
+						<a th:if="${@puzzleController.rating}" class="border border-warning rating">
+							Game rating: <span th:text="${@puzzleController.avgRating}"></span>
+						</a>
+						<br />
+						<a href="/minesweeper"> Start play Minesweeper</a>
+						<a th:if="${@minesweeperController.rating}" class="border border-warning rating">
+							Users rating: <span th:text="${@minesweeperController.avgRating}"></span>
+						</a>
+						<br />
+						<a href="/guessNumber"> Start play Guess The Number</a>
+						<a th:if="${@guessTheNumberController.rating}" class="border border-warning rating">
+							Game rating: <span th:text="${@guessTheNumberController.avgRating}"></span>
+						</a>
+						<br />
+					</section>
+				</div>
 			</div>
 		</div>	
 		<br />

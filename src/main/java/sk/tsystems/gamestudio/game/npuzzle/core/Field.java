@@ -54,7 +54,7 @@ public class Field {
 
 	private void shuffle() {
 		Random random = new Random();
-		for (int i = 0; i < rowCount * columnCount * 1000; i++)
+		for (int i = 0; i < rowCount * columnCount * 50; i++)
 			move(random.nextInt(rowCount * columnCount - 1) + 1);
 	}
 
@@ -94,7 +94,7 @@ public class Field {
 	public int getScore() {
 		long longSeconds = (System.currentTimeMillis() - startMillis) / 1000;
 		int seconds = (int) longSeconds;
-		int score = rowCount*columnCount*10 - seconds;
+		int score = rowCount*columnCount*30 - seconds;
 		if(score>0)
 			return score;
 			else return 0;
